@@ -1,0 +1,30 @@
+{
+  "name": "@bitbit/e2e-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "jest --runInBand --forceExit"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.2",
+    "@nestjs/core": "^11.1.2",
+    "@nestjs/platform-express": "^11.1.2",
+    "@nestjs/testing": "^11.1.2",
+    "@bitbit/onramp-service": "*",
+    "@bitbit/offramp-service": "*",
+    "@bitbit/pms-sync-service": "*",
+    "supertest": "^7.1.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/supertest": "^6.0.2",
+    "@types/uuid": "^10.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}

@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+:root {
+  --navy: #0B2545;
+  --cream: #F7F3E9;
+  --gold: #D4A054;
+  --turquoise: #1B7A6B;
+  --burgundy: #8B1E3F;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #071A33;
+  color: #E8EDF5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Perforation Line ────────────────────────────────────────────── */
+
+.perforation {
+  position: relative;
+  border-top: 2px dashed rgba(212, 160, 84, 0.2);
+}
+
+.perforation::before,
+.perforation::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #071A33;
+}
+
+.perforation::before {
+  left: -9px;
+}
+
+.perforation::after {
+  right: -9px;
+}
+
+/* ─── Boarding Pass (Dark) ────────────────────────────────────────── */
+
+.boarding-pass {
+  background: rgba(11, 37, 69, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.boarding-pass:hover {
+  border-color: rgba(212, 160, 84, 0.2);
+}
+
+/* ─── Focus Visible ───────────────────────────────────────────────── */
+
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────── */
+
+.btn-primary {
+  @apply rounded-lg bg-[#D4A054] px-6 py-2.5 text-[14px] font-semibold text-[#0B2545] transition-colors hover:bg-[#D4A054]/90;
+}
+
+/* ─── Tabular Nums ────────────────────────────────────────────────── */
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,146 @@
+# BITBIT CI Pipeline — Statik Analiz + Test
+# §9 Faz 4: Slither (Solidity) + ESLint (Backend) zorunlu adım
+
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ─── Solidity Statik Analiz (Slither) ────────────────────────────────
+  slither:
+    name: Slither — Solidity Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Install Slither
+        run: pip install slither-analyzer
+
+      - name: Install dependencies
+        run: forge install
+
+      - name: Run Slither
+        run: |
+          cd contracts
+          slither . --json-file slither-report.json || true
+          cat slither-report.json | head -100
+
+      - name: Upload Slither report
+        uses: actions/upload-artifact@v4
+        with:
+          name: slither-report
+          path: contracts/slither-report.json
+          retention-days: 30
+
+  # ─── Backend ESLint + Security ────────────────────────────────────────
+  backend-lint:
+    name: Backend — ESLint + Security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared packages
+        run: |
+          cd packages/shared-types && npm run build
+          cd ../../packages/config && npm run build
+
+      - name: ESLint — onramp-service
+        run: cd services/onramp-service && npx eslint "src/**/*.ts" --max-warnings 0
+
+      - name: ESLint — offramp-service
+        run: cd services/offramp-service && npx eslint "src/**/*.ts" --max-warnings 0
+
+      - name: ESLint — pms-sync-service
+        run: cd services/pms-sync-service && npx eslint "src/**/*.ts" --max-warnings 0
+
+  # ─── Frontend Build + Lint ────────────────────────────────────────────
+  frontend:
+    name: Frontend — Build + Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared packages
+        run: |
+          cd packages/shared-types && npm run build
+          cd ../../packages/config && npm run build
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Lint frontend
+        run: npm run lint
+
+  # ─── Service Tests ────────────────────────────────────────────────────
+  service-tests:
+    name: Service Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared packages
+        run: |
+          cd packages/shared-types && npm run build
+          cd ../../packages/config && npm run build
+
+      - name: Test — onramp-service
+        run: cd services/onramp-service && npx jest --coverage
+
+      - name: Test — offramp-service
+        run: cd services/offramp-service && npx jest --coverage
+
+      - name: Test — pms-sync-service
+        run: cd services/pms-sync-service && npx jest --coverage
+
+      - name: Test — E2E (§8.1)
+        run: cd services/e2e-test && npx jest --runInBand
+
+  # ─── Smart Contract Tests ────────────────────────────────────────────
+  contract-tests:
+    name: Smart Contracts — Build + Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Build contracts
+        run: forge build
+
+      - name: Test contracts
+        run: forge test
+
+      - name: Coverage
+        run: forge coverage --ir-minimum
