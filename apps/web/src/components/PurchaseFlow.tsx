@@ -148,11 +148,20 @@ export function PurchaseFlow({ listing }: { listing: Listing }) {
                     value={`${quote.amount_usdc.toFixed(2)} USDC`}
                   />
                 </div>
+                <div className="border-t border-white/10 pt-2 text-[14px] font-bold">
+                  <Row
+                    label="Toplam Tutar"
+                    value={formatPrice(quote.amount_fiat)}
+                  />
+                </div>
               </div>
               <p className="mt-2 font-mono text-[10px] text-white/25">
                 Teklif{" "}
                 {new Date(quote.expires_at).toLocaleTimeString("tr-TR")} kadar
                 geçerli.
+              </p>
+              <p className="mt-1 text-[10.5px] text-white/35">
+                Toplam tutara tüm vergiler dahildir.
               </p>
             </div>
 

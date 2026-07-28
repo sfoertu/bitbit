@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/listings", label: "İlanlar" },
-  { href: "/how-it-works", label: "Nasıl Çalışır?" },
+  { href: "/how-it-works", label: "Yönetici Özeti" },
 ];
 
 export function Navbar() {
@@ -45,6 +45,9 @@ export function Navbar() {
           </svg>
           <span className="font-display text-lg font-bold tracking-wide text-[#D4A054]">
             BITBIT
+          </span>
+          <span className="hidden font-mono text-[11px] font-semibold uppercase tracking-widest text-[#D4A054] drop-shadow-[0_0_6px_rgba(212,160,84,0.6)] sm:inline">
+            Smart Transfer System
           </span>
         </Link>
 

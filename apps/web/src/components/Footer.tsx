@@ -3,7 +3,7 @@ import Link from "next/link";
 const platformLinks = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/listings", label: "İlanlar" },
-  { href: "/how-it-works", label: "Nasıl Çalışır?" },
+  { href: "/how-it-works", label: "Yönetici Özeti" },
 ];
 
 export function Footer() {

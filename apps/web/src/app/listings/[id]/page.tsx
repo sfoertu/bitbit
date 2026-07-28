@@ -3,6 +3,9 @@
 import { useParams } from "next/navigation";
 import { mockListings, type Listing } from "@/data/listings";
 import { PurchaseFlow } from "@/components/PurchaseFlow";
+import { PriceBreakdown } from "@/components/pricing/PriceBreakdown";
+import { SmartOfferPanel } from "@/components/pricing/SmartOfferPanel";
+import { calculatePlatformFee, calculateTotalAmount, formatMoney } from "@/lib/pricing";
 
 export default function ListingDetailPage() {
   const params = useParams();
@@ -62,51 +65,56 @@ export default function ListingDetailPage() {
               </div>
             </div>
 
-            {/* Perforasyon */}
-            <div className="perforation mx-2" />
+            {listing.pricing?.pricingMode !== "smart_offer" && (
+              <>
+                {/* Perforasyon */}
+                <div className="perforation mx-2" />
 
-            {/* Alt kısım */}
-            <div className="p-5 pt-4">
-              <div className="flex items-baseline justify-between">
-                <div>
-                  <p className="text-[9px] font-semibold uppercase tracking-widest text-white/25">
-                    SATIŞ FİYATI
-                  </p>
-                  <div className="mt-0.5 flex items-baseline gap-2">
-                    <span className="font-display text-[22px] font-bold text-white tabular-nums">
-                      {formatPrice(listing.listPrice)}
-                    </span>
-                    <span className="font-mono text-[12px] text-white/15 line-through tabular-nums">
-                      {formatPrice(listing.originalPrice)}
-                    </span>
+                {/* Alt kısım */}
+                <div className="p-5 pt-4">
+                  <PriceBreakdown
+                    rows={[
+                      {
+                        label: "Satış fiyatı",
+                        value: formatMoney(listing.listPrice, listing.currency),
+                      },
+                      {
+                        label: "Hizmet bedeli (%5)",
+                        value: formatMoney(
+                          calculatePlatformFee(listing.listPrice),
+                          listing.currency
+                        ),
+                      },
+                    ]}
+                    totalLabel="Hemen Al Toplamı"
+                    totalValue={formatMoney(
+                      calculateTotalAmount(listing.listPrice),
+                      listing.currency
+                    )}
+                    footnote="Toplam tutara %5 BITBIT hizmet bedeli dahildir."
+                  />
+
+                  <div className="mt-3 space-y-0.5 text-[12px] text-white/35">
+                    <p>Ödeme yöntemi: Kredi kartı (3D Secure)</p>
+                    <p>Teslim: USDC olarak escrow&apos;a kilitlenir</p>
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-3 space-y-0.5 text-[12px] text-white/35">
-                <p>Ödeme yöntemi: Kredi kartı (3D Secure)</p>
-                <p>Teslim: USDC olarak escrow&apos;a kilitlenir</p>
-                <p>Komisyon: %5 platform ücreti dahil</p>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </div>
 
         {/* Sağ: Satın alma akışı */}
         <div>
-          <PurchaseFlow listing={listing} />
+          {listing.pricing?.pricingMode === "smart_offer" ? (
+            <SmartOfferPanel listing={listing} pricing={listing.pricing} />
+          ) : (
+            <PurchaseFlow listing={listing} />
+          )}
         </div>
       </div>
     </div>
   );
-}
-
-function formatPrice(price: number): string {
-  return new Intl.NumberFormat("tr-TR", {
-    style: "currency",
-    currency: "TRY",
-    minimumFractionDigits: 0,
-  }).format(price);
 }
 
 function discountPercent(original: number, list: number): number {

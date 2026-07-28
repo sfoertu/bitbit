@@ -4,9 +4,9 @@ import heroImg from "@/assets/home/hero.webp";
 import hotelImg from "@/assets/home/category-hotel.webp";
 import flightImg from "@/assets/home/category-flight.webp";
 import carImg from "@/assets/home/category-car.webp";
-import reservationImg from "@/assets/how-it-works/reservation-process.webp";
-import securityImg from "@/assets/how-it-works/security-process.webp";
-import paymentImg from "@/assets/how-it-works/payment-process.webp";
+import categorySceneHotel from "@/assets/home/category-scene-hotel.png";
+import categorySceneCar from "@/assets/home/category-scene-car.png";
+import categorySceneFlight from "@/assets/home/category-scene-flight.png";
 import { mockListings } from "@/data/listings";
 import { ListingCard } from "@/components/ListingCard";
 
@@ -15,59 +15,45 @@ const featuredListings = mockListings.slice(0, 3);
 export default function HomePage() {
   return (
     <div>
-      {/* Hero */}
-      <section className="relative overflow-hidden md:flex md:min-h-[700px] md:items-center">
-        {/* Arka plan fotoğrafı — mevcut asset, yalnızca konumlandırma güncellendi */}
+      {/* Hero — ürün lansmanı: 3 telefon mockup ana karakter, havaalanı yalnızca çok hafif doku */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#0B2545] to-[#071A33]">
+        {/* Havaalanı atmosferi — çok düşük opaklık, artık ana katman değil, yalnızca doku */}
         <div
-          className="absolute inset-0 bg-cover bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-no-repeat opacity-[0.07]"
           style={{
             backgroundImage: `url(${heroImg.src})`,
-            backgroundPosition: "60% 30%",
+            backgroundPosition: "65% 25%",
           }}
+          aria-hidden="true"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B2545]/40 via-[#0B2545]/80 to-[#071A33]" />
         {/* Radial glow — hafif, sol üstte başlığın arkasında */}
         <div className="pointer-events-none absolute -left-40 top-0 h-[520px] w-[520px] rounded-full bg-[#D4A054]/10 blur-[120px]" />
-        {/* Gradient overlay — solda okunabilirlik, sağda uçak/terminal görünür kalır */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B2545] via-[#0B2545]/80 to-transparent sm:from-[#0B2545]/98 sm:via-[#0B2545]/72 sm:to-[#0B2545]/5" />
         {/* Vignette — kenarlarda hafif koyulaşma */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(7,26,51,0.5)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(7,26,51,0.55)_100%)]" />
 
-        <div className="relative mx-auto w-full max-w-[1200px] px-6 py-20 md:py-24">
-          <div className="max-w-[640px]">
-            {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1">
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="text-[#D4A054]"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
-                Smart Transfer System
-              </span>
-            </div>
+        <div className="relative mx-auto flex w-full max-w-[1280px] flex-col gap-14 px-6 py-16 lg:min-h-[85vh] lg:flex-row lg:items-center lg:gap-8 lg:py-20">
+          {/* Sol: mesaj — ürünün ne olduğu, sahnenin arkaplanı değil */}
+          <div className="order-2 max-w-[460px] lg:order-1 lg:w-[34%] lg:flex-shrink-0">
+            {/* Kategori sahneleri — telefon kümesiyle aynı fan tasarımı, eyebrow'un hemen üstünde */}
+            <CategorySceneCluster />
 
-            {/* Başlık — 3 satır, büyük ve cesur */}
-            <h1 className="font-display text-[42px] font-bold leading-[1.08] tracking-tight text-white sm:text-[64px] sm:leading-[1.04] lg:text-[76px]">
-              İadesiz
+            {/* Başlık — 3 satır, tek baskın mesaj. Metin sütunu daraldığı için (telefonlar %60-70) ölçek lg'de küçültüldü — metin ve görsel birbirini ezmesin diye */}
+            <h1 className="font-display text-[40px] font-bold leading-[1.1] tracking-tight text-white sm:text-[56px] sm:leading-[1.06] lg:text-[34px] lg:leading-[1.15]">
+              Kullanamayacağın
               <br />
-              Rezervasyonunu
+              rezervasyonun
               <br />
-              <span className="text-[#D4A054]">Güvenle Devret.</span>
+              <span className="text-[#D4A054]">değerini kaybetme.</span>
             </h1>
 
-            {/* Alt metin */}
+            {/* Alt metin — tek fayda */}
             <p className="mt-6 max-w-[400px] text-[15px] leading-[1.75] text-white/55">
-              Seyahat planların değiştiyse rezervasyonunu güvenle ikincil
-              pazarda listele. Emanet sistemi her iki tarafı da korur.
+              Rezervasyonunu güvenle ikincil pazarda listele. Emanet sistemi
+              transfer tamamlanana kadar her iki tarafı da korur.
             </p>
 
-            {/* CTA'lar */}
+            {/* CTA'lar — en fazla 2 */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
               <Link
                 href="/listings"
@@ -86,21 +72,22 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* İstatistikler — glass, floating kartlar */}
-            <div className="mt-12 grid max-w-[520px] grid-cols-3 gap-3">
-              <StatItem
+            {/* Metadata satırı — kart değil, ince tek satır */}
+            <div className="mt-11 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <MetaItem
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <rect x="2" y="3" width="20" height="18" rx="2" />
                     <path d="M8 7h8M8 11h5" />
                   </svg>
                 }
                 value="6"
-                label="AKTİF İLAN"
+                label="Aktif İlan"
               />
-              <StatItem
+              <span className="hidden h-4 w-px bg-white/15 sm:block" aria-hidden="true" />
+              <MetaItem
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <circle cx="9" cy="7" r="4" />
                     <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" />
                     <circle cx="17" cy="7" r="4" />
@@ -108,110 +95,108 @@ export default function HomePage() {
                   </svg>
                 }
                 value="3"
-                label="KATEGORİ"
+                label="Kategori"
               />
-              <StatItem
+              <span className="hidden h-4 w-px bg-white/15 sm:block" aria-hidden="true" />
+              <MetaItem
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                 }
                 value="%30+"
-                label="TASARRUF"
+                label="Tasarruf"
               />
+            </div>
+          </div>
+
+          {/* Sağ: 3 telefon mockup — Hero'nun ana karakteri, %60-70 ağırlık */}
+          <div className="order-1 flex flex-1 items-center justify-center lg:order-2 lg:w-[66%] lg:justify-end">
+            <div className="lg:translate-x-6">
+              <PhoneCluster />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Nasıl Çalışır */}
-      <section
-        id="nasil-calisir"
-        className="relative overflow-hidden border-y border-white/5 bg-[#0A1E38] py-20 sm:py-24"
-      >
-        {/* Section ayrımı — hafif glow */}
-        <div className="pointer-events-none absolute -right-32 top-1/2 h-[360px] w-[360px] -translate-y-1/2 rounded-full bg-[#D4A054]/[0.05] blur-[140px]" />
+      {/* Marketplace Experience — Categories + Featured Listings tek sahnede birleşti */}
+      <section className="relative overflow-hidden border-y border-white/5 bg-[#071A33] py-28 sm:py-32">
+        <div className="pointer-events-none absolute left-1/2 top-0 h-[340px] w-[760px] -translate-x-1/2 rounded-full bg-[#D4A054]/[0.04] blur-[150px]" />
 
-        <div className="relative mx-auto max-w-[1100px] px-6">
-          <div className="grid gap-12 md:grid-cols-[minmax(0,380px)_1fr] md:gap-16">
-            {/* Sol: section header + CTA */}
-            <div>
+        <div className="relative mx-auto max-w-[1280px] px-6">
+          {/* Section header */}
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div className="max-w-[600px]">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
-                Nasıl Çalışır?
+                Marketplace
               </span>
-              <h2 className="mt-4 font-display text-[28px] font-bold leading-[1.2] text-white sm:text-[36px]">
-                Rezervasyonunu üç adımda
+              <h2 className="mt-4 font-display text-[28px] font-bold leading-[1.2] text-white sm:text-[40px]">
+                Uçuş, otel, araç —
                 <br />
-                değere dönüştür.
+                her rezervasyonun ikinci bir değeri var.
               </h2>
-              <p className="mt-4 max-w-[400px] text-[14px] leading-relaxed text-white/50">
-                Listele, güvenli eşleşmeyi tamamla ve rezervasyon transferini
-                kolayca gerçekleştir.
-              </p>
-
-              <Link
-                href="/how-it-works"
-                className="mt-7 inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-5 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-all hover:border-[#D4A054]/30 hover:bg-white/10"
-              >
-                Detaylı Nasıl Çalışır?
-                <span className="font-mono text-[13px]" aria-hidden="true">
-                  →
-                </span>
-              </Link>
-
-              <p className="mt-5 max-w-[360px] text-[12px] leading-relaxed text-white/35">
-                Ödeme, transfer başarıyla tamamlanana kadar güvenli biçimde
-                korunur.
+              <p className="mt-4 max-w-[460px] text-[14px] leading-relaxed text-white/50">
+                Doğrulanmış rezervasyonları avantajlı fiyatlarla keşfet veya
+                kendi rezervasyonunu güvenle listele.
               </p>
             </div>
 
-            {/* Sağ: 3 adımlı süreç */}
-            <div className="relative flex flex-col gap-5">
-              {/* Bağlantı çizgisi — yalnızca desktop, kartların üzerine binmez */}
-              <div className="pointer-events-none absolute left-[52px] top-10 bottom-10 hidden w-px bg-gradient-to-b from-[#D4A054]/35 via-[#D4A054]/10 to-transparent md:block" />
+            <Link
+              href="/listings"
+              className="inline-flex flex-shrink-0 items-center gap-2 self-start rounded-lg border border-white/15 bg-white/5 px-5 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-all hover:border-[#D4A054]/30 hover:bg-white/10 sm:self-auto"
+            >
+              Tüm İlanları Gör
+              <span className="font-mono text-[13px]" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          </div>
 
-              <ProcessStepCard
-                step="01"
-                title="Rezervasyonunu Listele"
-                description="Kullanamayacağın uçuş, otel veya araç rezervasyonunun bilgilerini ekle."
-                image={reservationImg}
-                imageAlt="Rezervasyon listeleme süreci görseli"
-              />
-              <ProcessStepCard
-                step="02"
-                title="Güvenli Eşleşme"
-                description="Alıcı rezervasyonu inceler; ödeme güvenli süreç içinde korunur."
-                image={securityImg}
-                imageAlt="Güvenli eşleşme süreci görseli"
-              />
-              <ProcessStepCard
-                step="03"
-                title="Transferi Tamamla"
-                description="Rezervasyon devri doğrulandıktan sonra ödeme satıcıya aktarılır."
-                image={paymentImg}
-                imageAlt="Ödeme transferi süreci görseli"
-              />
+          {/* Kategori rail — büyük premium preview chip'leri */}
+          <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <CategoryChip
+              title="Otel"
+              icon="🏨"
+              count="3 ilan"
+              image={hotelImg}
+              imageAlt="Otel kategorisi görseli"
+            />
+            <CategoryChip
+              title="Uçuş"
+              icon="✈️"
+              count="2 ilan"
+              image={flightImg}
+              imageAlt="Uçuş kategorisi görseli"
+            />
+            <CategoryChip
+              title="Araç Kiralama"
+              icon="🚗"
+              count="1 ilan"
+              image={carImg}
+              imageAlt="Araç kiralama kategorisi görseli"
+            />
+          </div>
+
+          {/* Ana sahne — tek büyük featured ilan + iki destekleyici ilan */}
+          <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-start">
+            <div className="lg:col-span-2">
+              <ListingCard listing={featuredListings[0]} variant="featured" large />
+            </div>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-1">
+              <ListingCard listing={featuredListings[1]} variant="featured" />
+              <ListingCard listing={featuredListings[2]} variant="featured" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Güven */}
+      {/* Trust / Infrastructure — düz satır, 2x2 kart grid değil */}
       <section className="relative overflow-hidden border-y border-white/5 bg-[#0B2545] py-20 sm:py-24">
-        {/* Hafif radial glow — çok yoğun değil */}
         <div className="pointer-events-none absolute -right-32 top-10 h-[420px] w-[420px] rounded-full bg-[#D4A054]/[0.06] blur-[130px]" />
-        {/* Çok hafif noise doku */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%272%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E")',
-          }}
-        />
 
         <div className="relative mx-auto max-w-[1100px] px-6">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Sol — başlık, açıklama, CTA */}
+            {/* Sol — başlık, açıklama, CTA, süreç zaman çizelgesi */}
             <div className="flex flex-col justify-center">
               <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
                 Neden BITBIT?
@@ -225,18 +210,9 @@ export default function HomePage() {
                 Rezervasyon transferinin her adımı kullanıcı güveni ve
                 şeffaflık düşünülerek tasarlanmıştır.
               </p>
-              <Link
-                href="/how-it-works"
-                className="mt-8 inline-flex w-fit items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-5 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-all hover:border-[#D4A054]/30 hover:bg-white/10"
-              >
-                Nasıl Çalıştığını İncele
-                <span className="font-mono text-[13px]" aria-hidden="true">
-                  →
-                </span>
-              </Link>
 
-              {/* Süreç zaman çizelgesi — yalnızca görsel anlatım */}
-              <div className="mt-10 flex items-center gap-2 text-white/40">
+              {/* Süreç zaman çizelgesi — yalnızca görsel anlatım, kart değil */}
+              <div className="mt-8 flex items-center gap-2 text-white/40">
                 {["Rezervasyon", "Doğrulama", "Transfer", "Tamamlandı"].map(
                   (label, i) => (
                     <div key={label} className="flex items-center gap-2">
@@ -260,278 +236,57 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Sağ — 2x2 premium trust kartları */}
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <TrustCard
+            {/* Sağ — düz satır listesi (kart değil) */}
+            <div>
+              <TrustRow
                 title="Doğrulanmış Kullanıcılar"
                 description="Kullanıcı kimliği ve rezervasyon bilgileri doğrulama süreçlerinden geçirilir."
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                     <path d="M9 12l2 2 4-4" />
                   </svg>
                 }
               />
-              <TrustCard
+              <TrustRow
                 title="Güvenli Ödeme"
                 description="Ödeme, rezervasyon hakkı devredilene kadar emanet sisteminde güvenle tutulur."
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <rect x="4" y="10" width="16" height="10" rx="2" />
                     <path d="M8 10V7a4 4 0 018 0v3" />
                   </svg>
                 }
               />
-              <TrustCard
+              <TrustRow
                 title="Şeffaf İşlem"
-                description="Rezervasyon durumu ve transfer adımları süreç boyunca uçtan uca izlenebilir."
+                description="Rezervasyon durumu ve transfer adımları bir Trace ID ile uçtan uca izlenebilir."
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
                 }
               />
-              <TrustCard
+              <TrustRow
                 title="Atomik Takas"
                 description="Para ve rezervasyon hakkı aynı işlemde el değiştirir — ara bir durum oluşmaz."
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
                     <path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3" />
                   </svg>
                 }
+                last
               />
             </div>
           </div>
         </div>
       </section>
-
-      {/* Kategoriler */}
-      <section className="relative overflow-hidden border-y border-white/5 bg-[#071A33] py-20 sm:py-24">
-        {/* Section ayrımı — hafif glow, önceki/sonraki bölümden yumuşak kopuş */}
-        <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[640px] -translate-x-1/2 rounded-full bg-[#D4A054]/[0.04] blur-[140px]" />
-
-        <div className="relative mx-auto max-w-[1100px] px-6">
-          {/* Section header */}
-          <div className="mx-auto max-w-[560px] text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
-              Seyahat Kategorileri
-            </span>
-            <h2 className="mt-4 font-display text-[28px] font-bold leading-[1.2] text-white sm:text-[36px]">
-              Planın değiştiğinde
-              <br />
-              değerini kaybetme.
-            </h2>
-            <p className="mt-4 text-[14px] leading-relaxed text-white/50">
-              Uçuş, otel ve araç rezervasyonlarını güvenli şekilde listele
-              veya avantajlı fırsatları keşfet.
-            </p>
-          </div>
-
-          {/* Kart grid */}
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <CategoryCard
-              title="Otel"
-              icon="🏨"
-              count="3 ilan"
-              image={hotelImg}
-              imageAlt="Otel kategorisi — konaklama rezervasyonu görseli"
-              description="Kullanamayacağın konaklama rezervasyonunu güvenle devret."
-            />
-            <CategoryCard
-              title="Uçuş"
-              icon="✈️"
-              count="2 ilan"
-              image={flightImg}
-              imageAlt="Uçuş kategorisi — uçak bileti rezervasyonu görseli"
-              description="İadesiz uçuşunu listele veya avantajlı bir rota keşfet."
-            />
-            <CategoryCard
-              title="Araç Kiralama"
-              icon="🚗"
-              count="1 ilan"
-              image={carImg}
-              imageAlt="Araç kiralama kategorisi — kiralık araç görseli"
-              description="Araç kiralama rezervasyonunu değer kaybetmeden transfer et."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Öne Çıkan İlanlar */}
-      <section className="bg-[#0A1E38] py-20 sm:py-24">
-        <div className="mx-auto max-w-[1100px] px-6">
-          {/* Section header */}
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-[520px]">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
-                Öne Çıkan Fırsatlar
-              </span>
-              <h2 className="mt-4 font-display text-[28px] font-bold leading-[1.2] text-white sm:text-[36px]">
-                Seyahat planın değiştiğinde
-                <br />
-                değerini kaybetme.
-              </h2>
-              <p className="mt-4 text-[14px] leading-relaxed text-white/50">
-                Doğrulanmış uçuş, otel ve araç rezervasyonlarını avantajlı
-                fiyatlarla keşfet.
-              </p>
-            </div>
-
-            <Link
-              href="/listings"
-              className="inline-flex flex-shrink-0 items-center gap-2 self-start rounded-lg border border-white/15 bg-white/5 px-5 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-all hover:border-[#D4A054]/30 hover:bg-white/10 sm:self-auto"
-            >
-              Tüm İlanları Gör
-              <span className="font-mono text-[13px]" aria-hidden="true">
-                →
-              </span>
-            </Link>
-          </div>
-
-          {/* Kart grid */}
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredListings.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} variant="featured" />
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
 
-function ProcessStepCard({
-  step,
-  title,
-  description,
-  image,
-  imageAlt,
-}: {
-  step: string;
-  title: string;
-  description: string;
-  image: StaticImageData;
-  imageAlt: string;
-}) {
-  return (
-    <div className="group relative flex items-center gap-4 rounded-2xl border border-white/10 bg-[#0B2545]/40 p-5 backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#D4A054]/25">
-      {/* İnce iç highlight */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/[0.04]" />
-
-      {/* Görsel + adım numarası rozeti */}
-      <div className="relative z-10 h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-white/10">
-        <Image
-          src={image}
-          alt={imageAlt}
-          fill
-          sizes="64px"
-          className="object-cover transition-transform duration-300 ease-out group-hover:scale-110"
-        />
-        <span className="absolute left-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[#0B2545]/90 font-mono text-[9px] font-bold text-[#D4A054] ring-1 ring-[#D4A054]/40">
-          {step}
-        </span>
-      </div>
-
-      <div className="relative z-10 min-w-0 flex-1">
-        <h3 className="font-display text-[16px] font-bold text-white">
-          {title}
-        </h3>
-        <p className="mt-1 text-[13px] leading-relaxed text-white/50 line-clamp-2">
-          {description}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function CategoryCard({
-  title,
-  icon,
-  count,
-  image,
-  imageAlt,
-  description,
-}: {
-  title: string;
-  icon: string;
-  count: string;
-  image: StaticImageData;
-  imageAlt: string;
-  description: string;
-}) {
-  return (
-    <Link
-      href="/listings"
-      className="group relative block h-[300px] overflow-hidden rounded-2xl border border-white/10 shadow-xl shadow-black/20 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-[#D4A054]/30 hover:shadow-[0_0_30px_-6px_rgba(212,160,84,0.18)] sm:h-[380px] lg:h-[420px]"
-    >
-      <Image
-        src={image}
-        alt={imageAlt}
-        fill
-        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-      />
-
-      {/* Gradient overlay — alt kısımda okunabilirlik */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B2545] via-[#0B2545]/55 to-transparent" />
-      {/* İnce iç highlight */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/[0.06]" />
-
-      {/* Üst rozet — mevcut ilan verisi */}
-      <span className="absolute right-4 top-4 rounded-full border border-white/15 bg-black/30 px-2.5 py-1 font-mono text-[11px] text-white/80 backdrop-blur-sm">
-        {count}
-      </span>
-
-      {/* Alt metin alanı */}
-      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-        <div className="flex items-center gap-2">
-          <span className="text-lg" aria-hidden="true">
-            {icon}
-          </span>
-          <h3 className="font-display text-[20px] font-bold text-white sm:text-[22px]">
-            {title}
-          </h3>
-        </div>
-        <p className="mt-2 max-w-[280px] text-[13px] leading-relaxed text-white/55 line-clamp-2">
-          {description}
-        </p>
-        <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#D4A054] transition-transform duration-300 ease-out group-hover:translate-x-1">
-          Fırsatları Gör
-          <span className="font-mono text-[13px]" aria-hidden="true">
-            →
-          </span>
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-function TrustCard({
-  title,
-  description,
-  icon,
-}: {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="group rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#D4A054]/30">
-      <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#D4A054]/15 bg-[#D4A054]/5 transition-transform duration-300 ease-out group-hover:scale-110">
-        {icon}
-      </div>
-      <h3 className="mt-3.5 font-display text-[14px] font-bold text-white">
-        {title}
-      </h3>
-      <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/45">
-        {description}
-      </p>
-    </div>
-  );
-}
-
-function StatItem({
+function MetaItem({
   icon,
   value,
   label,
@@ -541,16 +296,297 @@ function StatItem({
   label: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-2 py-3 text-center backdrop-blur-md sm:flex-row sm:gap-3 sm:px-4 sm:text-left">
-      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#D4A054]/20 bg-[#D4A054]/10 sm:h-9 sm:w-9">
-        {icon}
+    <div className="flex items-center gap-2">
+      <span className="text-[#D4A054]">{icon}</span>
+      <span className="font-mono text-[15px] font-bold text-white tabular-nums">
+        {value}
+      </span>
+      <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function CategorySceneCluster() {
+  return (
+    <div className="relative mb-8 flex items-center" aria-hidden="true">
+      <div className="relative z-0 -mr-9 w-[185px] flex-shrink-0 rotate-[-9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 sm:w-[220px]">
+        <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/15 shadow-lg shadow-black/40">
+          <Image
+            src={categorySceneHotel}
+            alt=""
+            fill
+            sizes="190px"
+            className="object-cover"
+          />
+        </div>
       </div>
-      <div>
-        <p className="font-mono text-[15px] font-bold text-[#D4A054] tabular-nums sm:text-[18px]">
-          {value}
+      <div className="relative z-10 w-[210px] flex-shrink-0 transition-transform duration-300 ease-out hover:z-20 hover:scale-125 sm:w-[260px]">
+        <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-[#D4A054]/25 shadow-xl shadow-black/50">
+          <Image
+            src={categorySceneCar}
+            alt=""
+            fill
+            sizes="260px"
+            className="object-cover"
+          />
+        </div>
+      </div>
+      <div className="relative z-0 -ml-9 w-[185px] flex-shrink-0 rotate-[9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 sm:w-[220px]">
+        <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/15 shadow-lg shadow-black/40">
+          <Image
+            src={categorySceneFlight}
+            alt=""
+            fill
+            sizes="190px"
+            className="object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PhoneCluster() {
+  return (
+    <div className="relative mx-auto flex items-center justify-center">
+      <div className="relative z-0 w-[115px] flex-shrink-0 -mr-[30px] rotate-[-9deg] opacity-90 sm:w-[145px] sm:-mr-[38px] lg:w-[195px] lg:-mr-[50px]">
+        <PhoneMockup variant="list" />
+      </div>
+      <div className="relative z-10 w-[150px] flex-shrink-0 sm:w-[195px] lg:w-[265px]">
+        <PhoneMockup variant="transfer" />
+      </div>
+      <div className="relative z-0 w-[115px] flex-shrink-0 -ml-[30px] rotate-[9deg] opacity-90 sm:w-[145px] sm:-ml-[38px] lg:w-[195px] lg:-ml-[50px]">
+        <PhoneMockup variant="complete" />
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockup({
+  variant,
+}: {
+  variant: "list" | "transfer" | "complete";
+}) {
+  return (
+    <div className="relative aspect-[9/19] w-full overflow-hidden rounded-[1.75rem] border-[3px] border-white/15 bg-[#0A1930] shadow-2xl shadow-black/60 sm:rounded-[2.25rem]">
+      {/* Dynamic island */}
+      <div className="absolute left-1/2 top-2 z-10 h-[12px] w-[54px] -translate-x-1/2 rounded-full bg-black/70 sm:h-[14px] sm:w-[64px]" />
+
+      {/* Durum çubuğu */}
+      <div className="flex items-center justify-between px-3 pt-4 text-[10px] font-semibold text-white/60 sm:px-4 sm:text-[12px]">
+        <span>9:41</span>
+        <span className="flex items-center gap-0.5" aria-hidden="true">
+          <span className="h-1.5 w-1.5 rounded-full bg-white/40" />
+          <span className="h-1.5 w-2.5 rounded-sm bg-white/40" />
+        </span>
+      </div>
+
+      {/* BITBIT marka satırı */}
+      <div className="flex items-center gap-1.5 px-3 pt-2.5 sm:px-4 sm:pt-3">
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          className="text-[#D4A054] sm:h-[14px] sm:w-[14px]"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+          <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        </svg>
+        <span className="font-display text-[9px] font-bold tracking-wide text-[#D4A054] sm:text-[10.5px]">
+          BITBIT
+        </span>
+      </div>
+
+      {variant === "list" && (
+        <div className="px-2.5 pt-4 sm:px-4 sm:pt-5">
+          <p className="font-display text-[12px] font-bold text-white sm:text-[14px]">
+            Rezervasyonlarım
+          </p>
+          <div className="mt-2.5 space-y-1.5 sm:mt-3 sm:space-y-2">
+            <MiniReservationRow icon="✈️" title="IST → AYT" meta="01 EYL" />
+            <MiniReservationRow icon="🏨" title="Kapadokya Otel" meta="15-17 AĞU" />
+            <MiniReservationRow icon="🚗" title="Antalya Kiralık" meta="10-17 AĞU" />
+          </div>
+        </div>
+      )}
+
+      {variant === "transfer" && (
+        <div className="flex h-full flex-col px-2.5 pt-4 sm:px-4 sm:pt-5">
+          <p className="font-display text-[12px] font-bold text-white sm:text-[14px]">
+            Rezervasyon Devri
+          </p>
+          <div className="mt-2.5 rounded-lg border border-white/10 bg-white/5 p-2.5 sm:mt-3 sm:p-3">
+            <p className="text-[10px] font-semibold text-white sm:text-[11px]">
+              İstanbul → Antalya
+            </p>
+            <p className="mt-0.5 font-mono text-[9px] text-white/40 sm:text-[10px]">
+              01 EYL 2026 · TK 0084
+            </p>
+          </div>
+
+          <div className="mt-3 flex items-center justify-center gap-2.5 sm:mt-4 sm:gap-3">
+            <span className="h-7 w-7 rounded-full bg-white/10 sm:h-9 sm:w-9" />
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-[#D4A054] sm:h-[18px] sm:w-[18px]"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+            <span className="h-7 w-7 rounded-full bg-[#D4A054]/30 sm:h-9 sm:w-9" />
+          </div>
+
+          <div className="mt-auto mb-4 sm:mb-5">
+            <div className="rounded-lg bg-[#D4A054] py-2 text-center text-[10px] font-bold text-[#0B2545] sm:py-2.5 sm:text-[12px]">
+              Devri Onayla
+            </div>
+          </div>
+        </div>
+      )}
+
+      {variant === "complete" && (
+        <div className="flex h-full flex-col items-center justify-center px-3 text-center sm:px-5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1B7A6B]/20 sm:h-12 sm:w-12">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="text-[#1B7A6B] sm:h-[22px] sm:w-[22px]"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </span>
+          <p className="mt-2.5 font-display text-[12px] font-bold text-white sm:mt-3 sm:text-[14px]">
+            Transfer Tamamlandı
+          </p>
+          <p className="mt-1 text-[9px] leading-relaxed text-white/45 sm:text-[10.5px]">
+            Rezervasyon karşı tarafa aktarıldı.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MiniReservationRow({
+  icon,
+  title,
+  meta,
+}: {
+  icon: string;
+  title: string;
+  meta: string;
+}) {
+  return (
+    <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 sm:gap-2.5 sm:px-2.5 sm:py-2">
+      <span className="text-[12px] sm:text-[14px]" aria-hidden="true">
+        {icon}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-[10px] font-semibold text-white sm:text-[11.5px]">
+          {title}
         </p>
-        <p className="font-mono text-[8px] font-semibold uppercase tracking-widest text-white/40 sm:text-[9px]">
-          {label}
+        <p className="font-mono text-[8.5px] text-white/40 sm:text-[9.5px]">
+          {meta}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function CategoryChip({
+  title,
+  icon,
+  count,
+  image,
+  imageAlt,
+}: {
+  title: string;
+  icon: string;
+  count: string;
+  image: StaticImageData;
+  imageAlt: string;
+}) {
+  return (
+    <Link
+      href="/listings"
+      className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] p-3 pr-5 transition-all duration-300 ease-out hover:border-[#D4A054]/30 hover:bg-white/[0.06]"
+    >
+      <span className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-28">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          sizes="(min-width: 640px) 112px, 96px"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+        />
+        <span className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="flex items-center gap-1.5 font-display text-[15px] font-bold text-white sm:text-[16px]">
+          <span aria-hidden="true">{icon}</span>
+          {title}
+        </p>
+        <p className="mt-1 font-mono text-[11px] text-white/40">{count}</p>
+      </div>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        className="flex-shrink-0 text-white/30 transition-all duration-300 ease-out group-hover:translate-x-0.5 group-hover:text-[#D4A054]"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </Link>
+  );
+}
+
+function TrustRow({
+  title,
+  description,
+  icon,
+  last = false,
+}: {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  last?: boolean;
+}) {
+  return (
+    <div
+      className={`flex items-start gap-4 py-5 ${last ? "" : "border-b border-white/5"}`}
+    >
+      <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center text-[#D4A054]">
+        {icon}
+      </span>
+      <div>
+        <h3 className="font-display text-[15px] font-bold text-white">
+          {title}
+        </h3>
+        <p className="mt-1 text-[13px] leading-relaxed text-white/50">
+          {description}
         </p>
       </div>
     </div>

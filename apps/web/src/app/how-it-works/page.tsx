@@ -1,133 +1,240 @@
 import Link from "next/link";
+import Image, { type StaticImageData } from "next/image";
+import heroSceneImg from "@/assets/how-it-works/product-launch-hero.png";
 import reservationImg from "@/assets/how-it-works/reservation-process.webp";
 import securityImg from "@/assets/how-it-works/security-process.webp";
 import paymentImg from "@/assets/how-it-works/payment-process.webp";
+import videoCoverListeleme from "@/assets/how-it-works/video-cover-listeleme.png";
+import videoCoverAltyapi from "@/assets/how-it-works/video-cover-altyapi.png";
+import videoCoverAnaliz from "@/assets/how-it-works/video-cover-analiz.png";
+
+const videoGuides = [
+  {
+    url: "https://youtu.be/DO-lewmjS0I",
+    title: "Uçak biletlerinde blokzincir tabanlı ikincil pazar",
+    duration: "12 dk",
+    cover: videoCoverListeleme,
+  },
+  {
+    url: "https://youtu.be/ClEakBRbm80",
+    title: "BITBIT İkincil Uçak Bileti Altyapı Analizi",
+    duration: "12 dk",
+    cover: videoCoverAltyapi,
+  },
+  {
+    url: "https://youtu.be/jK8xZ9GeOFY",
+    title: "BITBIT Projesinde Teknik ve Psikolojik Analiz",
+    duration: "13 dk",
+    cover: videoCoverAnaliz,
+  },
+];
 
 export default function HowItWorksPage() {
   return (
     <div>
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-[#0A1E38] py-20">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B2545]/80 via-[#0A1E38] to-[#071A33]" />
-        <div className="relative mx-auto max-w-[1100px] px-6 text-center">
-          <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1">
-            <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
+      {/* Hero — ürün lansmanı sahnesi, görsel kırpılmadan tam kompozisyonuyla kullanılıyor */}
+      <section className="relative bg-[#071A33] pb-16 pt-14 sm:pb-20 sm:pt-20">
+        <div className="mx-auto max-w-[1280px] px-6">
+          {/* Gerçek H1 — SEO/accessibility, görselin üstüne binmez, görseldeki başlığı tekrar etmez */}
+          <div className="mx-auto max-w-[620px] text-center">
+            <h1 className="font-display text-[30px] font-bold leading-tight text-white sm:text-[40px]">
+              Rezervasyon transferi nasıl çalışır?
+            </h1>
+            <p className="mx-auto mt-4 text-[14px] leading-relaxed text-white/55">
+              Rezervasyonunu listele, güvenli transfer sürecini tamamla ve
+              yeni sahibine devret.
+            </p>
+          </div>
+
+          {/* Ana sahne — tamamlanmış ürün lansmanı görseli, doğal en-boy oranıyla, kırpılmadan */}
+          <div className="relative mt-10 w-full sm:mt-14">
+            <Image
+              src={heroSceneImg}
+              alt="BITBIT Travel Wallet ürün sunumu — rezervasyonlarını listele, güvenle transfer et, yeni sahibine devret"
+              priority
+              sizes="(min-width: 1280px) 1232px, 100vw"
+              className="h-auto w-full"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Üç adımlı süreç — editorial timeline, kart değil */}
+      <section className="relative overflow-hidden border-y border-white/5 bg-[#0A1E38] py-20 sm:py-24">
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="mx-auto max-w-[560px] text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
               Süreç
             </span>
+            <h2 className="mt-4 font-display text-[26px] font-bold leading-[1.2] text-white sm:text-[32px]">
+              Üç adımda tamamlanan transfer.
+            </h2>
           </div>
-          <h1 className="font-display text-[40px] font-bold leading-[1.1] tracking-tight text-white sm:text-[48px]">
-            BITBIT nasıl çalışır?
-          </h1>
-          <p className="mx-auto mt-5 max-w-[560px] text-[14px] leading-[1.7] text-white/50">
-            Rezervasyonunu listelemekten ödemeni almana kadar, tüm süreç
-            emanet sistemiyle güvence altında — üç basit adımda.
-          </p>
-          <Link
-            href="/listings"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#D4A054] px-6 py-3 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
-          >
-            İlanları Keşfet
-            <span className="font-mono text-[13px]">→</span>
-          </Link>
+
+          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8">
+            <EditorialStep
+              step="01"
+              title="Rezervasyonunu Listele"
+              description="Rezervasyon bilgilerini ekle ve uygunluğunu doğrula."
+              image={reservationImg}
+              imageAlt="Rezervasyon listeleme süreci görseli"
+            />
+            <EditorialStep
+              step="02"
+              title="Transferi Güvenle Tamamla"
+              description="Alıcıyla eşleş, ödeme ve doğrulama adımlarını tamamla."
+              image={securityImg}
+              imageAlt="Güvenli transfer süreci görseli"
+            />
+            <EditorialStep
+              step="03"
+              title="Yeni Sahibe Devret"
+              description="Transfer tamamlandığında rezervasyon yeni kullanıcının hesabında aktifleşir."
+              image={paymentImg}
+              imageAlt="Ödeme ve devir süreci görseli"
+            />
+          </div>
         </div>
       </section>
 
-      {/* Section 1 — Reservation Process */}
-      <ProcessSection
-        eyebrow="Adım 1"
-        title="Rezervasyon Süreci"
-        description="Kullanamayacağın otel, uçuş veya araç kiralama rezervasyonunu birkaç dakikada listele. Rezervasyon bilgilerini gir, satış fiyatını belirle ve ilanın anında ikincil pazarda yayına alınsın."
-        bullets={[
-          "Rezervasyon detaylarını gir",
-          "Satış fiyatını belirle",
-          "İlan anında yayına alınır",
-        ]}
-        image={reservationImg.src}
-        imageAlt="Rezervasyon süreci"
-        imageSide="right"
-        background="bg-[#071A33]"
-      />
-
-      {/* Section 2 — Security */}
-      <ProcessSection
-        eyebrow="Adım 2"
-        title="Güvenlik"
-        description="Her işlem emanet (escrow) sistemi üzerinden yürür. Alıcının ödemesi güvenli şekilde tutulur; rezervasyon hakkı doğrulanmadan hiçbir taraf mağdur olmaz. Atomik takas ile para ve hak aynı anda el değiştirir."
-        bullets={[
-          "Emanet sistemiyle korunan ödemeler",
-          "Doğrulanmış rezervasyon devri",
-          "All-or-nothing atomik takas",
-        ]}
-        image={securityImg.src}
-        imageAlt="Güvenlik süreci"
-        imageSide="left"
-        background="bg-[#0A1E38]"
-      />
-
-      {/* Section 3 — Payment & Escrow */}
-      <ProcessSection
-        eyebrow="Adım 3"
-        title="Ödeme & Emanet"
-        description="İşlem tamamlandığında ödeme otomatik olarak satıcının hesabına aktarılır. Emanet sistemi, her iki tarafın da haklarını işlem tamamlanana kadar koruma altında tutar."
-        bullets={[
-          "Otomatik ödeme aktarımı",
-          "İşlem tamamlanana kadar emanet koruması",
-          "Şeffaf ve izlenebilir süreç",
-        ]}
-        image={paymentImg.src}
-        imageAlt="Ödeme ve emanet süreci"
-        imageSide="right"
-        background="bg-[#071A33]"
-      />
-
-      {/* Trust + FAQ + CTA */}
-      <section className="bg-[#0A1E38] py-16">
+      {/* Güven ve doğrulama — düz satır, kart grid değil */}
+      <section className="bg-[#0B2545] py-20 sm:py-24">
         <div className="mx-auto max-w-[1100px] px-6">
-          <h2 className="font-display text-center text-[26px] font-bold text-white">
-            Neden Güvenebilirsin?
-          </h2>
-          <div className="mt-10 grid grid-cols-3 gap-5">
-            <TrustCard
+          <div className="mx-auto max-w-[560px] text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
+              Güven
+            </span>
+            <h2 className="mt-4 font-display text-[26px] font-bold leading-[1.2] text-white sm:text-[32px]">
+              Doğrulama üzerine kurulu bir süreç.
+            </h2>
+          </div>
+
+          <div className="mx-auto mt-12 max-w-[720px]">
+            <TrustLine
               title="Emanet Koruması"
               description="Ödeme, rezervasyon hakkı devredilene kadar güvenli şekilde tutulur."
+              icon={
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="M9 12l2 2 4-4" />
+                </svg>
+              }
             />
-            <TrustCard
+            <TrustLine
               title="Atomik İşlem"
               description="Para ve hak aynı transaction'da el değiştirir — ya hep ya hiç."
+              icon={
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
+                  <path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3" />
+                </svg>
+              }
             />
-            <TrustCard
+            <TrustLine
               title="İzlenebilirlik"
-              description="Her adım trace ID ile izlenebilir, şeffaf bir süreç sunar."
+              description="Her adım bir Trace ID ile izlenebilir, şeffaf bir süreç sunar."
+              icon={
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">
+                  <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              }
+              last
             />
           </div>
         </div>
       </section>
 
-      <section className="bg-[#071A33] py-16">
+      {/* Video Rehberleri */}
+      <section className="bg-[#071A33] py-20 sm:py-24">
         <div className="mx-auto max-w-[1100px] px-6">
-          <h2 className="font-display text-center text-[26px] font-bold text-white">
-            Sıkça Sorulan Sorular
-          </h2>
-          <div className="mx-auto mt-10 max-w-[720px] space-y-3">
-            <FaqItem
-              question="Rezervasyonumu sattıktan sonra ödemem ne zaman gelir?"
-              answer="Alıcı rezervasyon hakkını devraldığında emanet sistemi ödemeyi otomatik olarak hesabına aktarır."
-            />
-            <FaqItem
-              question="Alıcı olarak ödemem güvende mi?"
-              answer="Evet. Ödemen, rezervasyon hakkının doğrulanmış şekilde sana devredilmesine kadar emanet sisteminde tutulur."
-            />
-            <FaqItem
-              question="İşlem başarısız olursa ne olur?"
-              answer="Atomik takas prensibi gereği işlem ya tam olarak gerçekleşir ya da hiç gerçekleşmez — ara bir durum oluşmaz."
-            />
+          <div className="mx-auto max-w-[680px] text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
+              Video Rehberleri
+            </span>
+            <h2 className="mt-4 font-display text-[24px] font-bold leading-[1.25] text-white sm:text-[30px]">
+              Nedir Bu Bitbit? Teknik Analiz ve Eleştiriler...
+            </h2>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            {videoGuides.map((video) => (
+              <a
+                key={video.url}
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#D4A054]/30"
+              >
+                {/* Video kapak görseli — büyük */}
+                <div className="relative h-[200px] w-full overflow-hidden sm:h-[220px]">
+                  <Image
+                    src={video.cover}
+                    alt={`${video.title} — video kapağı`}
+                    fill
+                    sizes="(min-width: 640px) 33vw, 100vw"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/10" />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="flex h-14 w-14 items-center justify-center rounded-full border border-[#D4A054]/40 bg-[#0A1E38]/80 backdrop-blur-sm transition-transform duration-300 ease-out group-hover:scale-110">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="ml-1 text-[#D4A054]" aria-hidden="true" focusable="false">
+                        <path d="M6 4l14 8-14 8V4z" />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+
+                <div className="p-5">
+                  <h3 className="font-display text-[14.5px] font-bold leading-snug text-white group-hover:text-[#D4A054]">
+                    {video.title}
+                  </h3>
+                  <p className="mt-1.5 font-mono text-[11px] text-white/40">
+                    {video.duration} · YouTube
+                  </p>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-[#0A1E38] py-14">
+      {/* PDF Platform Rehberi */}
+      <section className="bg-[#0A1E38] py-16 sm:py-20">
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center sm:p-10">
+            <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#D4A054]/25 bg-[#D4A054]/10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                <path d="M14 2v6h6" />
+              </svg>
+            </span>
+            <div>
+              <h2 className="font-display text-[20px] font-bold text-white sm:text-[24px]">
+                BITBIT Platform Rehberi
+              </h2>
+              <p className="mx-auto mt-2 max-w-[420px] text-[13.5px] leading-relaxed text-white/50">
+                Platformun tüm işleyişini tek dokümanda incele.
+              </p>
+            </div>
+            <a
+              href="/documents/bitbit-platform-guide.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#D4A054] px-6 py-3 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
+            >
+              BITBIT Platform Rehberini Aç
+              <span className="font-mono text-[13px]" aria-hidden="true">
+                →
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Son CTA */}
+      <section className="bg-[#071A33] py-16 sm:py-20">
         <div className="mx-auto max-w-[1100px] px-6 text-center">
-          <h2 className="font-display text-[24px] font-bold text-white">
+          <h2 className="font-display text-[22px] font-bold text-white sm:text-[26px]">
             Hazır mısın?
           </h2>
           <p className="mt-2 text-[14px] text-white/50">
@@ -139,7 +246,9 @@ export default function HowItWorksPage() {
               className="inline-flex items-center gap-2 rounded-lg bg-[#D4A054] px-6 py-3 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
             >
               İlanları Keşfet
-              <span className="font-mono text-[13px]">→</span>
+              <span className="font-mono text-[13px]" aria-hidden="true">
+                →
+              </span>
             </Link>
           </div>
         </div>
@@ -148,112 +257,70 @@ export default function HowItWorksPage() {
   );
 }
 
-function ProcessSection({
-  eyebrow,
+function EditorialStep({
+  step,
   title,
   description,
-  bullets,
   image,
   imageAlt,
-  imageSide,
-  background,
 }: {
-  eyebrow: string;
+  step: string;
   title: string;
   description: string;
-  bullets: string[];
-  image: string;
+  image: StaticImageData;
   imageAlt: string;
-  imageSide: "left" | "right";
-  background: string;
 }) {
-  const textBlock = (
-    <div className="flex-1">
-      <span className="font-mono text-[10px] font-semibold uppercase tracking-widest text-[#D4A054]">
-        {eyebrow}
-      </span>
-      <h2 className="mt-2 font-display text-[28px] font-bold leading-tight text-white sm:text-[32px]">
+  return (
+    <div className="relative text-center sm:text-left">
+      <div className="relative z-10 h-[220px] w-full overflow-hidden rounded-2xl border border-[#D4A054]/25 sm:h-[240px]">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          sizes="(min-width: 640px) 33vw, 100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A1E38]/70 via-transparent to-transparent" />
+        <span className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#0A1E38]/90 font-mono text-[12px] font-bold text-[#D4A054] ring-1 ring-[#D4A054]/40">
+          {step}
+        </span>
+      </div>
+      <h3 className="mt-5 font-display text-[17px] font-bold leading-snug text-white">
         {title}
-      </h2>
-      <p className="mt-4 max-w-[440px] text-[14px] leading-[1.7] text-white/50">
+      </h3>
+      <p className="mt-2 text-[13.5px] leading-relaxed text-white/50">
         {description}
       </p>
-      <ul className="mt-6 space-y-3">
-        {bullets.map((bullet) => (
-          <li key={bullet} className="flex items-start gap-2.5">
-            <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-[#D4A054]/20 bg-[#D4A054]/10">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="text-[#D4A054]">
-                <path d="M20 6L9 17l-5-5" />
-              </svg>
-            </span>
-            <span className="text-[13px] leading-relaxed text-white/70">
-              {bullet}
-            </span>
-          </li>
-        ))}
-      </ul>
     </div>
-  );
-
-  const imageBlock = (
-    <div className="flex-1">
-      <div
-        role="img"
-        aria-label={imageAlt}
-        className="h-[280px] w-full rounded-xl border border-white/5 bg-cover bg-center sm:h-[340px]"
-        style={{ backgroundImage: `url(${image})` }}
-      />
-    </div>
-  );
-
-  return (
-    <section className={`${background} py-14`}>
-      <div
-        className={`mx-auto flex max-w-[1100px] flex-col items-center gap-10 px-6 md:gap-14 ${
-          imageSide === "left" ? "md:flex-row" : "md:flex-row-reverse"
-        }`}
-      >
-        {imageBlock}
-        {textBlock}
-      </div>
-    </section>
   );
 }
 
-function TrustCard({
+function TrustLine({
   title,
   description,
+  icon,
+  last = false,
 }: {
   title: string;
   description: string;
+  icon: React.ReactNode;
+  last?: boolean;
 }) {
   return (
-    <div className="rounded-xl border border-[#D4A054]/10 bg-[#0B2545]/60 p-5">
-      <h3 className="font-display text-[15px] font-bold text-white">
-        {title}
-      </h3>
-      <p className="mt-1.5 text-[12.5px] leading-relaxed text-white/45">
-        {description}
-      </p>
-    </div>
-  );
-}
-
-function FaqItem({
-  question,
-  answer,
-}: {
-  question: string;
-  answer: string;
-}) {
-  return (
-    <div className="rounded-xl border border-white/5 bg-[#0B2545]/40 p-5">
-      <h3 className="font-display text-[14px] font-bold text-white">
-        {question}
-      </h3>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-white/50">
-        {answer}
-      </p>
+    <div
+      className={`flex items-start gap-4 py-5 ${last ? "" : "border-b border-white/5"}`}
+    >
+      <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center text-[#D4A054]">
+        {icon}
+      </span>
+      <div>
+        <h3 className="font-display text-[15px] font-bold text-white">
+          {title}
+        </h3>
+        <p className="mt-1 text-[13px] leading-relaxed text-white/50">
+          {description}
+        </p>
+      </div>
     </div>
   );
 }
