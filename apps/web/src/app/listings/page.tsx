@@ -14,7 +14,7 @@ export default function ListingsPage() {
       </div>
 
       {/* Filtre */}
-      <div className="mb-6 flex gap-2">
+      <div className="mb-6 flex flex-wrap gap-2">
         <FilterChip label="Tümü" active />
         <FilterChip label="🏨 Otel" />
         <FilterChip label="✈️ Uçuş" />

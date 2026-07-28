@@ -46,6 +46,11 @@ body {
   right: -9px;
 }
 
+.perforation--featured::before,
+.perforation--featured::after {
+  background-color: #0E2A4D;
+}
+
 /* ─── Boarding Pass (Dark) ────────────────────────────────────────── */
 
 .boarding-pass {

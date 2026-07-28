@@ -45,3 +45,4 @@ Thumbs.db
 .idea/
 
 # Foundry (contracts/ has its own .gitignore for cache/out/broadcast)
+.gstack/

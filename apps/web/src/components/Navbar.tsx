@@ -14,9 +14,9 @@ export function Navbar() {
 
   return (
     <header className="border-b border-white/5 bg-[#0B2545]/70 backdrop-blur-md">
-      <div className="mx-auto flex h-[60px] max-w-[1200px] items-center justify-between px-6">
+      <div className="mx-auto flex h-[60px] max-w-[1200px] items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href="/" className="flex flex-shrink-0 items-center gap-2.5">
           <svg
             width="22"
             height="22"
@@ -49,12 +49,12 @@ export function Navbar() {
         </Link>
 
         {/* Nav Links */}
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-3 sm:gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`relative text-[13px] font-medium transition-colors ${
+              className={`relative text-[11px] font-medium transition-colors sm:text-[13px] ${
                 pathname === link.href
                   ? "text-[#D4A054]"
                   : "text-white/70 hover:text-white"
@@ -68,7 +68,7 @@ export function Navbar() {
           ))}
 
           {/* Giriş Yap */}
-          <button className="ml-2 flex items-center gap-2 rounded-lg border border-[#D4A054]/40 px-4 py-1.5 text-[13px] font-medium text-[#D4A054] transition-colors hover:bg-[#D4A054]/10">
+          <button className="ml-1 flex flex-shrink-0 items-center gap-2 rounded-lg border border-[#D4A054]/40 px-2.5 py-1.5 text-[13px] font-medium text-[#D4A054] transition-colors hover:bg-[#D4A054]/10 sm:ml-2 sm:px-4">
             <svg
               width="14"
               height="14"
@@ -80,7 +80,7 @@ export function Navbar() {
               <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            Giriş Yap
+            <span className="hidden sm:inline">Giriş Yap</span>
           </button>
         </nav>
       </div>
