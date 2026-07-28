@@ -111,8 +111,8 @@ export default function HomePage() {
           </div>
 
           {/* Sağ: 3 telefon mockup — Hero'nun ana karakteri, %60-70 ağırlık */}
-          <div className="order-1 flex flex-1 items-center justify-center lg:order-2 lg:w-[66%] lg:justify-end">
-            <div className="lg:translate-x-6">
+          <div className="order-1 flex min-w-0 flex-1 items-center justify-center overflow-hidden lg:order-2 lg:w-[66%] lg:flex-none lg:justify-end">
+            <div className="w-full lg:translate-x-6">
               <PhoneCluster />
             </div>
           </div>
@@ -309,37 +309,41 @@ function MetaItem({
 }
 
 function CategorySceneCluster() {
+  // Genişlikler ebeveyn sütunun (max-w-460px / lg:34%) yüzdesi olarak
+  // tanımlanır — bu sütun her zaman sabit/ölçülebilir genişliğe sahip
+  // olduğundan (auto değil), yüzde tabanlı boyutlandırma burada güvenle
+  // çalışır ve küme hiçbir viewport'ta ekranın dışına taşmaz.
   return (
-    <div className="relative mb-8 flex items-center" aria-hidden="true">
-      <div className="relative z-0 -mr-9 w-[185px] flex-shrink-0 rotate-[-9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 sm:w-[220px]">
+    <div className="relative -mt-2 mb-8 flex w-full -translate-y-2 items-center sm:-translate-y-3" aria-hidden="true">
+      <div className="relative z-0 -mr-[6%] w-[30%] flex-shrink-0 rotate-[-9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 lg:-mr-[8%] lg:w-[35%]">
         <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/15 shadow-lg shadow-black/40">
           <Image
             src={categorySceneHotel}
             alt=""
             fill
-            sizes="190px"
+            sizes="(min-width: 1024px) 220px, 150px"
             className="object-cover"
           />
         </div>
       </div>
-      <div className="relative z-10 w-[210px] flex-shrink-0 transition-transform duration-300 ease-out hover:z-20 hover:scale-125 sm:w-[260px]">
+      <div className="relative z-10 w-[36%] flex-shrink-0 transition-transform duration-300 ease-out hover:z-20 hover:scale-125 lg:w-[44%]">
         <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-[#D4A054]/25 shadow-xl shadow-black/50">
           <Image
             src={categorySceneCar}
             alt=""
             fill
-            sizes="260px"
+            sizes="(min-width: 1024px) 270px, 180px"
             className="object-cover"
           />
         </div>
       </div>
-      <div className="relative z-0 -ml-9 w-[185px] flex-shrink-0 rotate-[9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 sm:w-[220px]">
+      <div className="relative z-0 -ml-[6%] w-[30%] flex-shrink-0 rotate-[9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 lg:-ml-[8%] lg:w-[35%]">
         <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/15 shadow-lg shadow-black/40">
           <Image
             src={categorySceneFlight}
             alt=""
             fill
-            sizes="190px"
+            sizes="(min-width: 1024px) 220px, 150px"
             className="object-cover"
           />
         </div>
@@ -349,15 +353,22 @@ function CategorySceneCluster() {
 }
 
 function PhoneCluster() {
+  // lg'de genişlikler ebeveyn sütunun (artık lg:flex-none lg:w-[66%] ile
+  // sabit/tanımlı) yüzdesi olarak verilir. clamp(vw) denemesi hâlâ taşmaya
+  // izin veriyordu çünkü sütun flex-1 (basis:0) yüzünden aslında hiçbir
+  // zaman gerçek "%66" genişliğe sahip değildi — üst öğe artık kesin
+  // genişlikli olduğundan yüzde burada güvenle çalışır ve küme matematiksel
+  // olarak asla sütunu (dolayısıyla ekranı) aşamaz. Mobil/tablet (<lg)
+  // boyutları zaten sorunsuzdu, dokunulmadı.
   return (
-    <div className="relative mx-auto flex items-center justify-center">
-      <div className="relative z-0 w-[115px] flex-shrink-0 -mr-[30px] rotate-[-9deg] opacity-90 sm:w-[145px] sm:-mr-[38px] lg:w-[195px] lg:-mr-[50px]">
+    <div className="relative mx-auto flex w-full items-center justify-center">
+      <div className="relative z-0 w-[115px] flex-shrink-0 -mr-[30px] rotate-[-9deg] opacity-90 sm:w-[145px] sm:-mr-[38px] lg:w-[23%] lg:-mr-[4%]">
         <PhoneMockup variant="list" />
       </div>
-      <div className="relative z-10 w-[150px] flex-shrink-0 sm:w-[195px] lg:w-[265px]">
+      <div className="relative z-10 w-[150px] flex-shrink-0 sm:w-[195px] lg:w-[28%]">
         <PhoneMockup variant="transfer" />
       </div>
-      <div className="relative z-0 w-[115px] flex-shrink-0 -ml-[30px] rotate-[9deg] opacity-90 sm:w-[145px] sm:-ml-[38px] lg:w-[195px] lg:-ml-[50px]">
+      <div className="relative z-0 w-[115px] flex-shrink-0 -ml-[30px] rotate-[9deg] opacity-90 sm:w-[145px] sm:-ml-[38px] lg:w-[23%] lg:-ml-[4%]">
         <PhoneMockup variant="complete" />
       </div>
     </div>

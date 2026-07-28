@@ -29,6 +29,21 @@ const videoGuides = [
   },
 ];
 
+const platformGuides = [
+  {
+    href: "/documents/bitbit-hybrid-infrastructure.pdf",
+    title: "Hibrit Altyapı Rehberi",
+    description: "Web2/Web3 hibrit mimarinin nasıl işlediğine dair teknik doküman.",
+    cta: "Hibrit Altyapı Rehberini Aç",
+  },
+  {
+    href: "/documents/bitbit-reservation-yield-engine.pdf",
+    title: "Rezervasyon Getiri Motoru Rehberi",
+    description: "Akıllı Teklif ve fiyatlandırma motorunun işleyişine dair teknik doküman.",
+    cta: "Getiri Motoru Rehberini Aç",
+  },
+];
+
 export default function HowItWorksPage() {
   return (
     <div>
@@ -201,32 +216,48 @@ export default function HowItWorksPage() {
       {/* PDF Platform Rehberi */}
       <section className="bg-[#0A1E38] py-16 sm:py-20">
         <div className="mx-auto max-w-[1100px] px-6">
-          <div className="flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center sm:p-10">
-            <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#D4A054]/25 bg-[#D4A054]/10">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                <path d="M14 2v6h6" />
-              </svg>
-            </span>
-            <div>
-              <h2 className="font-display text-[20px] font-bold text-white sm:text-[24px]">
-                BITBIT Platform Rehberi
-              </h2>
-              <p className="mx-auto mt-2 max-w-[420px] text-[13.5px] leading-relaxed text-white/50">
-                Platformun tüm işleyişini tek dokümanda incele.
-              </p>
-            </div>
-            <a
-              href="/documents/bitbit-platform-guide.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#D4A054] px-6 py-3 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
-            >
-              BITBIT Platform Rehberini Aç
-              <span className="font-mono text-[13px]" aria-hidden="true">
-                →
-              </span>
-            </a>
+          <div className="mb-8 text-center">
+            <h2 className="font-display text-[20px] font-bold text-white sm:text-[24px]">
+              BITBIT Platform Rehberi
+            </h2>
+            <p className="mx-auto mt-2 max-w-[420px] text-[13.5px] leading-relaxed text-white/50">
+              Platformun işleyişini iki dokümanda incele.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            {platformGuides.map((guide) => (
+              <div
+                key={guide.href}
+                className="flex flex-col items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#D4A054]/25 bg-[#D4A054]/10">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]" aria-hidden="true" focusable="false">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                    <path d="M14 2v6h6" />
+                  </svg>
+                </span>
+                <div>
+                  <h3 className="font-display text-[16px] font-bold text-white">
+                    {guide.title}
+                  </h3>
+                  <p className="mx-auto mt-1.5 max-w-[320px] text-[13px] leading-relaxed text-white/50">
+                    {guide.description}
+                  </p>
+                </div>
+                <a
+                  href={guide.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-[#D4A054] px-6 py-3 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
+                >
+                  {guide.cta}
+                  <span className="font-mono text-[13px]" aria-hidden="true">
+                    →
+                  </span>
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </section>
