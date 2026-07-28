@@ -314,8 +314,8 @@ function CategorySceneCluster() {
   // olduğundan (auto değil), yüzde tabanlı boyutlandırma burada güvenle
   // çalışır ve küme hiçbir viewport'ta ekranın dışına taşmaz.
   return (
-    <div className="relative -mt-2 mb-8 flex w-full -translate-y-2 items-center sm:-translate-y-3" aria-hidden="true">
-      <div className="relative z-0 -mr-[6%] w-[30%] flex-shrink-0 rotate-[-9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 lg:-mr-[8%] lg:w-[35%]">
+    <div className="relative -mt-2 mb-8 flex w-full -translate-y-2 items-center justify-center sm:-translate-y-3" aria-hidden="true">
+      <div className="relative z-0 -mr-[7%] w-[33%] flex-shrink-0 rotate-[-9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 lg:-mr-[8%] lg:w-[35%]">
         <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/15 shadow-lg shadow-black/40">
           <Image
             src={categorySceneHotel}
@@ -326,7 +326,7 @@ function CategorySceneCluster() {
           />
         </div>
       </div>
-      <div className="relative z-10 w-[36%] flex-shrink-0 transition-transform duration-300 ease-out hover:z-20 hover:scale-125 lg:w-[44%]">
+      <div className="relative z-10 w-[42%] flex-shrink-0 transition-transform duration-300 ease-out hover:z-20 hover:scale-125 lg:w-[44%]">
         <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-[#D4A054]/25 shadow-xl shadow-black/50">
           <Image
             src={categorySceneCar}
@@ -337,7 +337,7 @@ function CategorySceneCluster() {
           />
         </div>
       </div>
-      <div className="relative z-0 -ml-[6%] w-[30%] flex-shrink-0 rotate-[9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 lg:-ml-[8%] lg:w-[35%]">
+      <div className="relative z-0 -ml-[7%] w-[33%] flex-shrink-0 rotate-[9deg] opacity-90 transition-all duration-300 ease-out hover:z-20 hover:scale-125 hover:opacity-100 lg:-ml-[8%] lg:w-[35%]">
         <div className="relative aspect-[3/2] overflow-hidden rounded-xl border border-white/15 shadow-lg shadow-black/40">
           <Image
             src={categorySceneFlight}
