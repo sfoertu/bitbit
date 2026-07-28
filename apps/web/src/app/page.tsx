@@ -8,22 +8,26 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero */}
-      <section className="relative h-[540px] overflow-hidden">
-        {/* Arka plan fotoğrafı */}
+      <section className="relative overflow-hidden md:flex md:min-h-[700px] md:items-center">
+        {/* Arka plan fotoğrafı — mevcut asset, yalnızca konumlandırma güncellendi */}
         <div
           className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
             backgroundImage: `url(${heroImg.src})`,
-            backgroundPosition: "50% 35%",
+            backgroundPosition: "60% 30%",
           }}
         />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B2545]/95 via-[#0B2545]/60 to-[#0B2545]/10" />
+        {/* Radial glow — hafif, sol üstte başlığın arkasında */}
+        <div className="pointer-events-none absolute -left-40 top-0 h-[520px] w-[520px] rounded-full bg-[#D4A054]/10 blur-[120px]" />
+        {/* Gradient overlay — solda okunabilirlik, sağda uçak/terminal görünür kalır */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B2545] via-[#0B2545]/80 to-transparent sm:from-[#0B2545]/98 sm:via-[#0B2545]/72 sm:to-[#0B2545]/5" />
+        {/* Vignette — kenarlarda hafif koyulaşma */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(7,26,51,0.5)_100%)]" />
 
-        <div className="relative mx-auto flex h-full max-w-[1200px] items-center px-6">
-          <div className="max-w-[620px]">
+        <div className="relative mx-auto w-full max-w-[1200px] px-6 py-20 md:py-24">
+          <div className="max-w-[640px]">
             {/* Badge */}
-            <div className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1">
+            <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-[#D4A054]/30 bg-[#D4A054]/10 px-3 py-1">
               <svg
                 width="12"
                 height="12"
@@ -38,65 +42,72 @@ export default function HomePage() {
               </span>
             </div>
 
-            {/* Başlık — 2 satır hedefi */}
-            <h1 className="font-display text-[48px] font-bold leading-[1.05] tracking-tight text-white sm:text-[56px]">
-              İadesiz rezervasyonunu
+            {/* Başlık — 3 satır, büyük ve cesur */}
+            <h1 className="font-display text-[42px] font-bold leading-[1.08] tracking-tight text-white sm:text-[64px] sm:leading-[1.04] lg:text-[76px]">
+              İadesiz
               <br />
-              <span className="text-[#D4A054]">başkasına devret.</span>
+              Rezervasyonunu
+              <br />
+              <span className="text-[#D4A054]">Güvenle Devret.</span>
             </h1>
 
             {/* Alt metin */}
-            <p className="mt-5 max-w-[440px] text-[14px] leading-[1.7] text-white/50">
-              Seyahat planların değiştiyse, rezervasyonunu güvenle ikincil
-              pazarda listele. Alıcılar avantajlı fiyatlarla satın alsın —
-              emanet sistemi her iki tarafı da korur.
+            <p className="mt-6 max-w-[400px] text-[15px] leading-[1.75] text-white/55">
+              Seyahat planların değiştiyse rezervasyonunu güvenle ikincil
+              pazarda listele. Emanet sistemi her iki tarafı da korur.
             </p>
 
-            {/* CTA — reference ile aynı his */}
-            <Link
-              href="/listings"
-              className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#D4A054] px-6 py-3 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
-            >
-              İlanları Keşfet
-              <span className="font-mono text-[13px]">→</span>
-            </Link>
-          </div>
-        </div>
+            {/* CTA'lar */}
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <Link
+                href="/listings"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#D4A054] px-7 py-3.5 text-[14px] font-semibold text-[#0B2545] shadow-lg shadow-[#D4A054]/10 transition-all hover:bg-[#D4A054]/90 hover:shadow-[#D4A054]/20"
+              >
+                İlanları Keşfet
+                <span className="font-mono text-[13px]">→</span>
+              </Link>
+              <Link
+                href="/how-it-works"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/5 px-7 py-3.5 text-[14px] font-semibold text-white backdrop-blur-sm transition-all hover:border-white/30 hover:bg-white/10"
+              >
+                Nasıl Çalışır?
+              </Link>
+            </div>
 
-        {/* İstatistikler — hero içinde, alt kısım */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-[#0B2545]/60 backdrop-blur-sm">
-          <div className="mx-auto flex h-[68px] max-w-[1200px] items-center gap-10 px-6">
-            <StatItem
-              icon={
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]">
-                  <rect x="2" y="3" width="20" height="18" rx="2" />
-                  <path d="M8 7h8M8 11h5" />
-                </svg>
-              }
-              value="6"
-              label="AKTİF İLAN"
-            />
-            <StatItem
-              icon={
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]">
-                  <circle cx="9" cy="7" r="4" />
-                  <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" />
-                  <circle cx="17" cy="7" r="4" />
-                  <path d="M21 21v-2a4 4 0 00-3-3.87" />
-                </svg>
-              }
-              value="3"
-              label="KATEGORİ"
-            />
-            <StatItem
-              icon={
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              }
-              value="%30+"
-              label="TASARRUF"
-            />
+            {/* İstatistikler — glass, floating kartlar */}
+            <div className="mt-12 grid max-w-[520px] grid-cols-3 gap-3">
+              <StatItem
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]">
+                    <rect x="2" y="3" width="20" height="18" rx="2" />
+                    <path d="M8 7h8M8 11h5" />
+                  </svg>
+                }
+                value="6"
+                label="AKTİF İLAN"
+              />
+              <StatItem
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]">
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" />
+                    <circle cx="17" cy="7" r="4" />
+                    <path d="M21 21v-2a4 4 0 00-3-3.87" />
+                  </svg>
+                }
+                value="3"
+                label="KATEGORİ"
+              />
+              <StatItem
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4A054]">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                }
+                value="%30+"
+                label="TASARRUF"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -107,7 +118,7 @@ export default function HomePage() {
           <h2 className="font-display text-center text-[22px] font-bold text-white">
             Nasıl Çalışır?
           </h2>
-          <div className="mt-8 flex items-stretch gap-0">
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:gap-0">
             <StepCard
               step="1"
               title="Rezervasyonunu Listele"
@@ -119,8 +130,8 @@ export default function HomePage() {
                 </svg>
               }
             />
-            <span className="flex flex-shrink-0 items-center px-1.5 text-[18px] font-light text-[#D4A054]/40">
-              ›
+            <span className="flex flex-shrink-0 items-center justify-center px-1.5 text-[18px] font-light text-[#D4A054]/40 sm:justify-start">
+              <span className="rotate-90 sm:rotate-0">›</span>
             </span>
             <StepCard
               step="2"
@@ -132,8 +143,8 @@ export default function HomePage() {
                 </svg>
               }
             />
-            <span className="flex flex-shrink-0 items-center px-1.5 text-[18px] font-light text-[#D4A054]/40">
-              ›
+            <span className="flex flex-shrink-0 items-center justify-center px-1.5 text-[18px] font-light text-[#D4A054]/40 sm:justify-start">
+              <span className="rotate-90 sm:rotate-0">›</span>
             </span>
             <StepCard
               step="3"
@@ -156,7 +167,7 @@ export default function HomePage() {
           <h2 className="font-display text-center text-[22px] font-bold text-white">
             Kategoriler
           </h2>
-          <div className="mt-8 grid grid-cols-3 gap-5">
+          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
             <CategoryCard
               title="Otel"
               icon="🏨"
@@ -260,15 +271,15 @@ function StatItem({
   label: string;
 }) {
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#D4A054]/20 bg-[#D4A054]/5">
+    <div className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-2 py-3 text-center backdrop-blur-md sm:flex-row sm:gap-3 sm:px-4 sm:text-left">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[#D4A054]/20 bg-[#D4A054]/10 sm:h-9 sm:w-9">
         {icon}
       </div>
       <div>
-        <p className="font-mono text-[18px] font-bold text-[#D4A054] tabular-nums">
+        <p className="font-mono text-[15px] font-bold text-[#D4A054] tabular-nums sm:text-[18px]">
           {value}
         </p>
-        <p className="font-mono text-[9px] font-semibold uppercase tracking-widest text-white/35">
+        <p className="font-mono text-[8px] font-semibold uppercase tracking-widest text-white/40 sm:text-[9px]">
           {label}
         </p>
       </div>
